@@ -26,18 +26,15 @@ scoreResult Draw = 3
 scoreResult Win = 6
 
 myShape :: Shape -> Result -> Shape
-myShape his Lose = do
-  case find (< his) shapes of
+myShape his r = do
+  let cmp = case r of
+              Lose -> (< his)
+              Draw -> (his ==)
+              Win -> (his <)
+
+  case find cmp shapes of
     Just s -> s
-    _ -> error "unreachable"
-myShape his Draw = do
-  case find (his ==) shapes of
-    Just s -> s
-    _ -> error "unreachable"
-myShape his Win = do
-  case find (his <) shapes of
-    Just s -> s
-    _ -> error "unreachable"
+    Nothing -> error "unreachable"
   
 readShape :: Char -> Shape 
 readShape 'A' = Rock
