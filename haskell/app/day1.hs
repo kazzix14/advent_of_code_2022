@@ -4,7 +4,7 @@ import Data.Maybe ( isJust, catMaybes )
 
 main :: IO ()
 main = do
-  s <- readFile "input.txt"
+  s <- readFile "day1.txt"
   let parsed = parseStr s
   let summed = map sum parsed
   let m =  maximum summed

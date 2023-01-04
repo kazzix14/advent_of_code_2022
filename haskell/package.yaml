@@ -44,8 +44,6 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies:
-    - day1
   day1-part2-exe:
     main:                day1-part2.hs
     source-dirs:         app
@@ -53,16 +51,18 @@ executables:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies:
-    - day1
-
-tests:
-  day1-test:
-    main:                Spec.hs
-    source-dirs:         test
+  day1-v2-exe:
+    main:                day1-v2.hs
+    source-dirs:         app
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
-    dependencies:
-    - day1
+  day2-exe:
+    main:                day2.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+
