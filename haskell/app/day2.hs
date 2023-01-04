@@ -3,9 +3,12 @@ data Shape = Rock | Paper | Scissors deriving (Show, Eq);
 
 instance Ord Shape where
   compare Rock Paper = LT
+  compare Rock Scissors = GT
   compare Paper Scissors = LT
+  compare Paper Rock = GT
   compare Scissors Rock = LT
-  compare l r = compare EQ (compare r l)
+  compare Scissors Paper = GT
+  compare _ _ = EQ
   
 readShape :: Char -> Maybe Shape 
 readShape 'A' = Just Rock
@@ -15,9 +18,6 @@ readShape 'X' = Just Rock
 readShape 'Y' = Just Paper
 readShape 'Z' = Just Scissors
 readShape _ = Nothing
-
-readsShapes :: [Char] -> [Shape]
-readsShapes = mapMaybe readShape
 
 shapeScore :: Shape -> Int
 shapeScore Rock = 1
@@ -32,7 +32,7 @@ matchScore mine his
 
 score :: String -> Int
 score i = do
-  let s = readsShapes i
+  let s = mapMaybe readShape i
   let his = head s
   let mine = last s
   shapeScore mine + matchScore mine his
