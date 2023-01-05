@@ -1,5 +1,6 @@
 import Data.Foldable (find)
-data Shape = Rock | Paper | Scissors deriving (Show, Eq);
+
+data Shape = Rock | Paper | Scissors deriving (Show, Eq)
 
 instance Ord Shape where
   compare Rock Paper = LT
@@ -13,7 +14,7 @@ instance Ord Shape where
 shapes :: [Shape]
 shapes = [Rock, Paper, Scissors]
 
-data Result = Lose | Draw | Win deriving (Enum, Show, Eq);
+data Result = Lose | Draw | Win deriving (Enum, Show, Eq)
 
 scoreShape :: Shape -> Int
 scoreShape Rock = 1
@@ -28,15 +29,15 @@ scoreResult Win = 6
 myShape :: Shape -> Result -> Shape
 myShape his r = do
   let cmp = case r of
-              Lose -> (< his)
-              Draw -> (his ==)
-              Win -> (his <)
+        Lose -> (< his)
+        Draw -> (his ==)
+        Win -> (his <)
 
   case find cmp shapes of
     Just s -> s
     Nothing -> error "unreachable"
-  
-readShape :: Char -> Shape 
+
+readShape :: Char -> Shape
 readShape 'A' = Rock
 readShape 'B' = Paper
 readShape 'C' = Scissors
@@ -50,7 +51,7 @@ readResult _ = error "unexpected"
 
 readLine :: [Char] -> (Shape, Result)
 readLine i = do
-  let his = readShape $ head i  
+  let his = readShape $ head i
   let r = readResult $ i !! 2
   (his, r)
 
@@ -64,6 +65,3 @@ main = do
   ls <- lines <$> readFile "day2.txt"
   let scores = uncurry score . readLine <$> ls
   print $ sum scores
-
-
-    
